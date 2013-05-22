@@ -31,7 +31,7 @@ public class AllMyDrawings
 
     public static void drawPicture1(Graphics2D g2) {
 
-	Box b1 = new Box(100,250,50,75, 25);
+	Box b1 = new Box(100,250,50,75, 15);
 	g2.setColor(Color.CYAN); g2.draw(b1);
 	
 	// Make a black house that's half the size, 

@@ -35,12 +35,15 @@ public class Box extends GeneralPathWrapper implements Shape
     public Box(double x, double y, double width, double height, double depth)
     {
 
-		double frontUpperLeftY = y + height;
-        double sideStartX = x + width;
-		double sideEndX = sideStartX + depth;
-		double sideBotStartY = y;
-		double sideBotEndY = sideBotStartY + depth;
-
+	double frontUpperLeftY = y + height;
+       	double sideStartX = x + width;
+	double sideEndX = sideStartX + depth;
+	double sideBotStartY = frontUpperLeftY + height;
+	double sideBotEndY = sideBotStartY - depth;
+	double sideTopStartY = frontUpperLeftY;
+	double sideTopEndY = sideTopStartY - depth;
+	double topEndX = x + depth;
+	double topEndY = frontUpperLeftY - depth;
         
         // Create the front of the box
         
@@ -48,16 +51,28 @@ public class Box extends GeneralPathWrapper implements Shape
             new Rectangle2D.Double(x, frontUpperLeftY,
                           width, height);
                           
-		// Create the side of the box
-		
-		Line2D.Double sideBot =
-			new Line2D.Double(sideStartX, sideBotStartY, sideEndX, sideBotEndY);
+	// Create the side of the box
+	
+	Line2D.Double sideBot =
+	    new Line2D.Double(sideStartX, sideBotStartY, sideEndX, sideBotEndY);
+	Line2D.Double sideTop =
+	    new Line2D.Double(sideStartX, sideTopStartY, sideEndX, sideTopEndY);
+	Line2D.Double sideSide =
+	    new Line2D.Double(sideEndX, sideBotEndY, sideEndX, sideTopEndY);
+
+	// Creates the top of the box
+	
+	Line2D.Double topSide =
+	    new Line2D.Double(x, frontUpperLeftY, topEndX, topEndY);
 
         // put the whole house together
        
-        GeneralPath wholeHouse = this.get();
-        wholeHouse.append(front, false);
-        
+        GeneralPath wholeBox = this.get();
+        wholeBox.append(front, false);
+	wholeBox.append(sideBot, false);
+        wholeBox.append(sideTop, false);
+	wholeBox.append(sideSide, false);
+	wholeBox.append(topSide, false);
     }
 
 }
