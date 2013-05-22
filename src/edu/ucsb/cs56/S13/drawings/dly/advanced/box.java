@@ -37,7 +37,7 @@ public class Box extends GeneralPathWrapper implements Shape
 
 		double frontUpperLeftY = y + height;
         double sideStartX = x + width;
-		double sideEndX = sideBotStartX + depth;
+		double sideEndX = sideStartX + depth;
 		double sideBotStartY = y;
 		double sideBotEndY = sideBotStartY + depth;
 
@@ -51,7 +51,7 @@ public class Box extends GeneralPathWrapper implements Shape
 		// Create the side of the box
 		
 		Line2D.Double sideBot =
-			new Line2D.double(sideStartX, sideBotStartY, sideEndX, sideBotEndY);
+			new Line2D.Double(sideStartX, sideBotStartY, sideEndX, sideBotEndY);
 
         // put the whole house together
        
