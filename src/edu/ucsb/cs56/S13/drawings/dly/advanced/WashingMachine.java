@@ -7,6 +7,7 @@ import java.awt.Shape; // general class for shapes
 import java.awt.geom.Point2D; 
 import java.awt.geom.Line2D; 
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.Ellipse2D;
 import java.awt.Rectangle;
 import java.awt.geom.PathIterator;
 import java.awt.geom.AffineTransform;
@@ -27,37 +28,47 @@ public class WashingMachine extends Box implements Shape
     /**
        Constructor
 
-       @param x x coord of lower left corner of box
-       @param y y coord of lower left corner of box
-       @param width width of the box
-       @param height of box
+       @param x x coord of lower left corner of washing machine
+       @param y y coord of lower left corner of the washing machine
+       @param width width of the washing machine
+       @param height height of the washing machine
+       @param diameter diameter of the opening of the washing machine
      */
     public WashingMachine(double x, double y, double width, 
-			  double height, double depth)
+			  double height, double depth, double diameter)
     {
+	super(x, y, width, height, depth);
 
 	double frontUpperLeftY = y + height;
-       	double sideStartX = x + width;
-	double sideEndX = sideStartX + depth;
-	double sideBotStartY = frontUpperLeftY + height;
-	double sideBotEndY = sideBotStartY - depth;
-	double sideTopStartY = frontUpperLeftY;
-	double sideTopEndY = sideTopStartY - depth;
-	double topEndX = x + depth;
-	double topEndY = frontUpperLeftY - depth;
-        
-	// create the opening of the washing machine
+
+	double innerDia = diameter*3/4;
+	double outerDia = diameter;
+        double innerCircleX = x + width/2 - innerDia/2;
+	double innerCircleY = frontUpperLeftY + height/2 - innerDia/2;
+	double outerCircleX = x + width/2 - outerDia/2;
+	double outerCircleY = frontUpperLeftY + height/2 - outerDia/2;
+
+	double topPanelEndX = x + width;
+	double topPanelY = frontUpperLeftY + height/8;
+
+	// create the opening of the washing machine at the center of the box
 	
+	Ellipse2D.Double innerCircle = 
+	    new Ellipse2D.Double(innerCircleX, innerCircleY, innerDia, innerDia);
+        Ellipse2D.Double outerCircle =
+	    new Ellipse2D.Double(outerCircleX, outerCircleY, outerDia, outerDia);
+
+	// creates the panel on the top of the washing machine 1/8 of the height
+	// from the top
+	Line2D.Double frontPanel = 
+	    new Line2D.Double(x, topPanelY, topPanelEndX, topPanelY);
 
         // put the whole washing machine together
        
         GeneralPath wholeBox = this.get();
-        wholeBox.append(front, false);
-	wholeBox.append(sideBot, false);
-        wholeBox.append(sideTop, false);
-	wholeBox.append(sideSide, false);
-	wholeBox.append(topSide, false);
-	wholeBox.append(topTop, false);
+        wholeBox.append(innerCircle, false);
+	wholeBox.append(outerCircle, false);
+	wholeBox.append(frontPanel, false);
     }
 
 }

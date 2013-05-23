@@ -31,7 +31,7 @@ public class AllMyDrawings
 
     public static void drawPicture1(Graphics2D g2) {
 
-	Box b1 = new Box(100,250,50,75, 15);
+	Box b1 = new Box(100,250,50,50, 15);
 	g2.setColor(Color.CYAN); g2.draw(b1);
 	
 	// Make a black house that's half the size, 
@@ -71,13 +71,23 @@ public class AllMyDrawings
 	
 	g2.setStroke(orig);
 	g2.setColor(Color.BLACK); 
-	g2.drawString("A few houses by Phill Conrad", 20,20);
+	g2.drawString("Several Boxes by Phill Conrad", 20,20);
     }
 
 
     /** Draw a picture with a few houses and coffee cups
      */
     public static void drawPicture2(Graphics2D g2) {
+
+	Box b1 = new Box(200, 200, 60, 60, 15);
+	g2.setColor(Color.BLUE);
+	g2.draw(b1);
+
+	WashingMachine wm1 = new WashingMachine(100, 100, 60, 60, 15, 40);
+	WashingMachine wm2 = new WashingMachine(100, 10, 40, 40, 10, 30);
+	g2.setColor(Color.BLACK);
+	g2.draw(wm1);
+	g2.draw(wm2);
 
 	// @@@ FINALLY, SIGN AND LABEL YOUR DRAWING
 	
